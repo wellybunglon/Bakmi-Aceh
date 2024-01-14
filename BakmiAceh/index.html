@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bakmi Aceh</title>
+
+    <!--Fonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,700;1,300&display=swap" rel="stylesheet">
+
+    <!--icon-->
+    <script src="https://unpkg.com/feather-icons"></script> 
+    
+    <!--My Style-->
+    <link rel="stylesheet" href="style.css">
+
+    <!--AlpineJS-->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <!---App-->
+    <script src="app.js" async></script>
+
+    <!-- MidTrans
+    <script type="text/javascript"
+      src="https://app.sandbox.midtrans.com/snap/snap.js"
+      data-client-key="SB-Mid-server-zGj6nq3Etrmhx6cr277NnSyn"></script> -->
+</head>
+<>
+    
+    <!--Navbar start-->
+    <nav class="navbar" x-data>
+        <a href="#" class="navbar-logo">Bakmi<span>Aceh</span></a>
+    
+        <div class="navbar-nav">
+            <a href="#home">Home</a>
+            <a href="#about">Tentang Kami</a>
+            <a href="#menu">Menu</a>
+            <a href="#products">Produk</a>
+            <a href="#contact">Kontak</a>
+        </div>
+
+        <div class="navbar-extra">
+            <a href="#" id="search-button"><i data-feather="search"></i></a>
+            <a href="#" id="shopping-cart-button">
+                <i data-feather="shopping-cart"></i>
+                <span class="quantity-badge" x-show="$store.cart.quantity" x-text="$store.cart.quantity"></span>
+            </a>
+            <a href="#" id="bakmimenu"><i data-feather="menu"></i></a>
+        </div>
+
+        <!-- Search from start -->
+        <div class="search-form">
+            <input type="search" id="search-box" placeholder="search here....">
+            <label for="search-box"><i data-feather="search"></i></label>
+        </div>
+
+        <!-- Search from end -->
+
+        <!--Shopping Cart Start-->
+        <div class="shopping-cart">
+            <template x-for="(item, index) in $store.cart.items" x-keys="index">
+        <div class="cart-item">
+            <img :src="`products/${item.img}`" :alt="item.name">
+            <div class="item-detail">
+                <h3 x-text="item.name"></h3>
+                <div class="item-price">
+                    <span x-text="rupiah(item.price)"></span> &times;
+                    <button id="remove" @click="$store.cart.remove(item.id)">&minus;</button>
+                    <span x-text="item.quantity"></span>
+                    <button id="add" @click="$store.cart.add(item)">&plus;</button> &equals;
+                    <span x-text="rupiah(item.total)"></span>
+                </div>
+            </div>
+                </div>
+            </template>
+            <h4 x-show="!$store.cart.items.length" style="margin-top: 1rem;">Cart masih kosong</h4>
+            <h4 x-show="$store.cart.items.length">Total : <span x-text="rupiah($store.cart.total)"></span></h4>
+
+            <div class="form-container" x-show="$store.cart.items.length">
+                <form action="" id="checkoutform">
+                    <input type="hidden" name="items" x-model="JSON.stringify($store.cart.items)">
+                    <input type="hidden" name="total" x-model="$store.cart.total">
+                    <h5>Customer Detail</h5>
+
+                    <label for="name">
+                        <span>Name</span>
+                        <input type="text" name="name" id="name">
+                    </label>
+
+                    <label for="email"> 
+                        <span>Email</span>
+                        <input type="email" name="email" id="email">
+                    </label>
+
+                    <label for="phone">
+                        <span>phone</span>
+                        <input type="number" name="phone" id="phone" autocomplete="off">
+                    </label>
+
+                    <button class="checkout-button disabled" type="submit" id="checkout-button" value="checkout">Checkout</button>
+                </form>
+            </div>
+            </div>
+        <!--Shopping Cart end-->
+    
+        
+    </nav>
+    <!--Navbar end-->
+
+    <!--Hero Section start-->
+    <section class="hero" id="home">
+        <main class="content" >
+            <h1>Mari Nikmati <span>Bakmi</span></h1>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur, perferendis.</p>
+            <a href="#products" class="cta"><i data-feather="shopping-cart"></i>&emsp;Pesan Sekarang</a>
+            </main>
+    </section>
+
+    <!--Hero Section End-->
+    <!--about section start-->
+    <section id="about" class="about">
+        <h2><span>Tentang</span>Kami</h2>
+
+        <div class="row">
+            <div class="about-img">
+                <img src="imgtentang/mie2.jpg" alt="Tentang Kami">
+            </div>
+            <div class="content">
+                <h3>Kenapa memilih Bakmi Kami</h3>
+                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. 
+                    Nihil consequatur alias labore voluptas? Vero, obcaecati?
+                </p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
+                    Ullam sapiente illo nemo sed quasi vitae voluptas delectus 
+                    commodi repudiandae aliquam?</p>
+            </div>
+        </div>
+
+    </section>
+    <!--about section end-->
+
+    <!--Menu Section Start-->
+    <section id="menu" class="menu">
+        <h2><span>Menu</span>Kami</h2>
+
+        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. 
+            Quod voluptas provident distinctio sint,</p>
+
+        <div class="row">
+            <div class="menu-card">
+                <div class="menu-icons">
+                <a href="#" class="item-detail-button"><i data-feather="eye"></i></a>
+                </div>
+            <div class="menu-image">
+                <img src="menu/1.jpg" alt="menu 1">
+                <h3 class="menu-card-title">- Nasigoreng -</h3>
+                <p class="menu-card-price">IDR 10K</p>
+            </div>
+            </div>
+            <div class="menu-card">
+                <div class="menu-icons">
+                <a href="#" class="item-detail-button2"><i data-feather="eye"></i></a>
+                
+            </div>
+            <div class="menu-image">
+                <img src="menu/2.jpg" alt="menu 1">
+                <h3 class="menu-card-title">- Nasigoreng -</h3>
+                <p class="menu-card-price">IDR 10K</p>
+            </div>
+            </div>
+    </section>
+    <!--Menu section end-->
+
+    <!--Product section start-->
+    <section class="products" id="products" x-data="products">
+        <h2><span>Pesanan</span>Produk</h2>
+
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. In enim harum quis, iste minima ex!</p>
+    
+    <div class="row">
+        <template x-for="(item, index) in items" x-key="index">
+        <div class="product-card">
+            <div class="product-icons">
+                <a href="#" @click.prevent="$store.cart.add(item)">
+                    <svg width="24"
+                        height="24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round">
+  <use href="products/feather-sprite.svg#shopping-cart" />
+</svg>
+                </a>
+            </div>
+            <div class="product-image">
+                <img :src="`products/${item.img}`" :alt="item.name">
+            </div>
+            <div class="product-content">
+                <h3 x-text="item.name"></h3>
+                <div class="product-stars">
+                    <svg width="24"
+                        height="24"
+                        fill="currentColor"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round">
+  <use href="products/feather-sprite.svg#star" />
+                            </svg>
+                    <svg width="24"
+                        height="24"
+                        fill="currentColor"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round">
+<use href="products/feather-sprite.svg#star" />
+                            </svg>
+                    <svg width="24"
+                        height="24"
+                        fill="currentColor"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round">
+<use href="products/feather-sprite.svg#star" />
+                            </svg>
+                    <svg width="24"
+                        height="24"
+                        fill="currentColor"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round">
+<use href="products/feather-sprite.svg#star" />
+                            </svg>
+                </div>
+                <div class="product-price"><span x-text="rupiah(item.price)"></span></div>
+            </div>
+        </div>
+    </template>
+    </div>
+</section>
+    <!--Product section end-->
+
+    <!--contact section start-->
+    <section id="contact" class="contact">
+        <h2><span>Kontak</span>Kami</h2>
+
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Animi, cupiditate.</p>
+
+        <div class="row">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31606.6791121195!2d112.60713628006279!3d-8.015956491883404!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd627f111255b27%3A0xdc909403b64b616!2sGadang%2C%20Sukun%2C%20Malang%20City%2C%20East%20Java!5e0!3m2!1sen!2sid!4v1702527796619!5m2!1sen!2sid" 
+            allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="map"></iframe>
+
+            <form action="">
+                <div class="input-group">
+                    <i data-feather="user"></i>
+                    <input type="text" placeholder="nama">
+                </div>
+                <div class="input-group">
+                    <i data-feather="mail"></i>
+                    <input type="text" placeholder="email">
+                </div>
+                <div class="input-group">
+                    <i data-feather="phone"></i>
+                    <input type="text" placeholder="No.HP">
+                </div>
+            <button type="submit" class="btn">Kirim Pesan</button>
+            </form>
+
+        </div>
+    </section>
+      <!--contact section end-->
+
+      <!--footer start-->
+      <footer>
+        <div class="socials">
+            <a href="#"><i data-feather="instagram"></i></a>
+            <a href="#"><i data-feather="twitter"></i></a>
+            <a href="#"><i data-feather="facebook"></i></a>
+        </div>
+
+        <div class="links">
+            <a href="#home">Home</a>
+            <a href="#about">Tentang Kami</a>
+            <a href="#menu">Menu</a>
+            <a href="#contact">Kontak</a>
+        </div>
+
+        <div class="credit">
+            <p>Created by <a href="">Wellyhan</a>.|&copy:2023.</p>
+        </div>
+      </footer>
+      <!--footer end-->
+
+      <!--Modal Box Item Detail Start-->
+      <div class="modal" id="item-detail-modal">
+        <div class="modal-container">
+            <a href="#" class="close-icon"><i data-feather="x"></i></a>
+            <div class="modal-content">
+                <img src="products/1.jpg" alt="product 1">
+                <div class="product-content">
+                    <h3>Product 1</h3>
+                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. 
+                        Tempore laudantium, nihil commodi sint temporibus fuga. 
+                        Nobis accusantium quisquam perspiciatis doloremque reiciendis 
+                        molestiae illum quos reprehenderit?</p>
+
+                        <div class="product-stars">
+                            <i data-feather="star" class="star-full"></i>
+                            <i data-feather="star" class="star-full"></i>
+                            <i data-feather="star" class="star-full"></i>
+                            <i data-feather="star" class="star-full"></i>
+                            <i data-feather="star"></i>
+                        </div>
+                     <div class="product-price">IDR 12K <span>IDR 15K</span></div>
+             <a href="#products" id="close-detail"><i data-feather="shopping-cart"></i><span>add to cart</span></a></div>
+            </div>
+        </div>
+        </div>
+        
+        <div class="modal2" id="item-detail-modal2">
+        <div class="modal-container">
+            <a href="#" class="close-icon"><i data-feather="x"></i></a>
+            <div class="modal-content">
+                <img src="products/2.jpg" alt="product 1">
+                <div class="product-content">
+                    <h3>Product 2</h3>
+                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. 
+                        Tempore laudantium, nihil commodi sint temporibus fuga. 
+                        Nobis accusantium quisquam perspiciatis doloremque reiciendis 
+                        molestiae illum quos reprehenderit?</p>
+
+                        <div class="product-stars">
+                            <i data-feather="star" class="star-full"></i>
+                            <i data-feather="star" class="star-full"></i>
+                            <i data-feather="star" class="star-full"></i>
+                            <i data-feather="star" class="star-full"></i>
+                            <i data-feather="star"></i>
+                        </div>
+                     <div class="product-price">IDR 12K <span>IDR 15K</span></div>
+             <a href="#products" id="close-detail"><i data-feather="shopping-cart"></i><span>add to cart</span></a></div>
+            </div>
+        </div>
+
+      <!--Modal Box Item Detail End-->
+
+
+<!--feather icons-->
+ <script>
+    feather.replace();
+</script>
+
+<!--Javascript-->
+<script src="script.js"></script>
+
+</body>
+</html>
